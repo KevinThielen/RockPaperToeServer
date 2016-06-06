@@ -31,11 +31,7 @@
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="jbossws-api-1.0.3.Final.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
+			<attribute name="owner.project.facets" value="jboss.m2"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
