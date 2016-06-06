@@ -12,15 +12,7 @@
     <packaging>ejb</packaging>
 
 
-    <dependencies>
-		<dependency>
-		    <groupId>org.jboss.ws</groupId>
-		    <artifactId>jbossws</artifactId>
-		    <version>1.0.3</version>
-		    <scope>system</scope>
-		    <systemPath>${project.basedir}/jbossws-api-1.0.3.Final.jar</systemPath>
-		</dependency>
-		
+    <dependencies>		
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
