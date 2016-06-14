@@ -15,6 +15,7 @@ public class DtoAssembler {
 		HighscoreTO dto = new HighscoreTO();
 		dto.setId(highscore.getId());
 		dto.setScore(highscore.getScore());
+		dto.setPlayerName(highscore.getPlayerName());
 		dto.setRanking(highscore.getRanking());
 		return dto;
 	}
