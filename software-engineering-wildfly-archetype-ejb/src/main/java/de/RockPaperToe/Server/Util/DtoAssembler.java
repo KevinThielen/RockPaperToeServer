@@ -7,11 +7,7 @@ import de.RockPaperToe.Server.Highscore.Highscore;
 
 @Stateless
 public class DtoAssembler {
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> Integration
 	public HighscoreTO makeDTO(Highscore highscore){
 		HighscoreTO dto = new HighscoreTO();
 		dto.setId(highscore.getId());
@@ -19,8 +15,4 @@ public class DtoAssembler {
 		dto.setRanking(highscore.getRanking());
 		return dto;
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> Integration
 }

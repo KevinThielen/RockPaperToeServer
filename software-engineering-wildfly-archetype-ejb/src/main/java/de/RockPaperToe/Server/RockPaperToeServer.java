@@ -51,7 +51,8 @@ public class RockPaperToeServer {
 			}
 		}
 		catch (Exception e){
-			
+			response.setReturnCode(1);
+			response.setMessage(e.getMessage());
 		}
 		
 		return response;
