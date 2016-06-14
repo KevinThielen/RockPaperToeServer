@@ -26,4 +26,9 @@ public class HighscoreRegistry {
 	public void addHighscore(Highscore highscore){
 		this.highscores.add(highscore);
 	}
+	
+	@Lock(LockType.READ)
+	public ArrayList<Highscore> getHighscores(){		
+		return highscores;
+	}
 }
