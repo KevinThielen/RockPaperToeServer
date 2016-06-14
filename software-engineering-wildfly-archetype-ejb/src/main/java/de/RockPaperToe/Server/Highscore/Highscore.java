@@ -12,6 +12,8 @@ public class Highscore implements Serializable{
 	
 	private Player player;
 	
+	private String playerName;
+	
 	private static int lastID = 0;
 	
 	public Highscore(Player player){
@@ -19,6 +21,7 @@ public class Highscore implements Serializable{
 		this.score = 0;
 		this.ranking = 0;
 		this.player = player;
+		this.playerName = player.getUserName();
 	}
 	
 	public int getId(){
@@ -27,6 +30,10 @@ public class Highscore implements Serializable{
 	
 	public Player getPlayer(){
 		return player;
+	}
+	
+	public String getPlayerName(){
+		return playerName;
 	}
 	
 	public int getScore(){
@@ -50,6 +57,6 @@ public class Highscore implements Serializable{
 	}
 	
 	public String toString(){
-		return "HighscoreID: "+this.id+" Name: "+this.getPlayer().getUserName()+" Score: "+this.score+" Ranking: "+this.ranking;
+		return "HighscoreID: "+this.id+" Name: "+this.getPlayerName()+" Score: "+this.score+" Ranking: "+this.ranking;
 	}
 }
