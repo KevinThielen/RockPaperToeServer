@@ -10,8 +10,10 @@ public class HighscoreTO implements Serializable{
 	
 	private int id, score, ranking;
 	
-	//private int playerId;
+	private int playerId;
+	
 	private String playerName;
+	
 	
 	public int getId() {
 		return id;
@@ -19,6 +21,14 @@ public class HighscoreTO implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public void setPlayerId(int playerId){
+		this.playerId = playerId;
+	}
+	
+	public int getPlayerId(){
+		return playerId;
 	}
 
 	public int getScore() {
