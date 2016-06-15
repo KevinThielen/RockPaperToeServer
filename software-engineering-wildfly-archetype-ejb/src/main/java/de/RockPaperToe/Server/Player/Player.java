@@ -12,12 +12,12 @@ public class Player implements Serializable{
 	private String userName;
 	private Highscore highscore;
 	
-	public Player(String userName){
-		this.setId(++lastID);
+	public Player(int id, String userName){
+		this.id = id;
 		this.userName = userName;
 		this.highscore = null;
 	}
-	
+		
 	public void addNewHighscore(Highscore highscore){
 		this.highscore = highscore;
 	}
