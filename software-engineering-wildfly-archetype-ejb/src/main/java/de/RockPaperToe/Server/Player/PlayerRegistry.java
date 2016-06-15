@@ -39,16 +39,16 @@ public class PlayerRegistry {
 		
 		//Spieler anlegen
 		Player max = new Player(1,player1Name);
-		Player anna = new Player(7,player2Name);
-		Player johann = new Player(4,"Johann");
-		Player manfred = new Player(9,"Manfred");
-		Player andre = new Player(11,"Andre");
-		Player kevin = new Player(2,"Kevin");
-		Player jasmin = new Player(3,"Jasmin");
-		Player arnold = new Player(6,"Arnold");
-		Player julian = new Player(10,"Julian");
-		Player lena = new Player(8,"Lena");
-		Player janna = new Player(5,"Janna");
+		Player anna = new Player(2,player2Name);
+		Player johann = new Player(3,"Johann");
+		Player manfred = new Player(4,"Manfred");
+		Player andre = new Player(5,"Andre");
+		Player kevin = new Player(6,"Kevin");
+		Player jasmin = new Player(7,"Jasmin");
+		Player arnold = new Player(8,"Arnold");
+		Player julian = new Player(9,"Julian");
+		Player lena = new Player(10,"Lena");
+		Player janna = new Player(11,"Janna");
 		
 		//Spieler in die Registry-ArrayList
 		addPlayer(max);
