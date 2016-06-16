@@ -75,11 +75,12 @@ public class HighscoreTO implements Serializable{
 		this.playerId = playerId;
 	}*/
 	
-	public HighscoreTO(int id, int score, int ranking, String playerName){
+	public HighscoreTO(int id, int score, int ranking, String playerName, int playerId){
 		this.id = id;
 		this.score = score;
 		this.ranking = ranking;
 		this.playerName = playerName;
+		this.playerId = playerId;
 	}
 	
 	/*

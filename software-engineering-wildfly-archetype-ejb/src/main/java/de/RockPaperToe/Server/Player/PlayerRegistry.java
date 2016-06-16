@@ -49,6 +49,7 @@ public class PlayerRegistry {
 		Player julian = new Player(9,"Julian");
 		Player lena = new Player(10,"Lena");
 		Player janna = new Player(11,"Janna");
+		Player brutus = new Player(12, "Brutus");
 		
 		//Spieler in die Registry-ArrayList
 		addPlayer(max);
@@ -62,6 +63,7 @@ public class PlayerRegistry {
 		addPlayer(julian);
 		addPlayer(lena);
 		addPlayer(janna);
+		addPlayer(brutus);
 		logger.info("Player Max angelegt: "+max);
 		logger.info("Player Anna angelegt: "+anna);
 		logger.info("Player Johann angelegt: "+johann);
@@ -73,6 +75,7 @@ public class PlayerRegistry {
 		logger.info("Player Julian angelegt: "+julian);
 		logger.info("Player Lena angelegt: "+lena);
 		logger.info("Player Janna angelegt: "+janna);
+		logger.info("Player Brutus angelegt: "+brutus);
 		
 		
 		//Highscore anlegen
@@ -109,6 +112,9 @@ public class PlayerRegistry {
 		Highscore jannaHighscore = new Highscore(janna);
 		jannaHighscore.setScore(500);
 		jannaHighscore.setRanking(11);
+		Highscore brutusHighscore = new Highscore(brutus);
+		brutusHighscore.setScore(450);
+		brutusHighscore.setRanking(12);
 		
 		//Highscores in die Registry-ArrayList
 		HighscoreRegistry highscoreRegistry = (HighscoreRegistry) context.lookup("ejb/HighscoreManager");
@@ -123,6 +129,7 @@ public class PlayerRegistry {
 		highscoreRegistry.addHighscore(julianHighscore);
 		highscoreRegistry.addHighscore(lenaHighscore);
 		highscoreRegistry.addHighscore(jannaHighscore);
+		highscoreRegistry.addHighscore(brutusHighscore);
 		
 		logger.info("Highscore angelegt: "+maxHighscore);
 		logger.info("Highscore angelegt: "+annaHighscore);
@@ -135,6 +142,7 @@ public class PlayerRegistry {
 		logger.info("Highscore angelegt: "+julianHighscore);
 		logger.info("Highscore angelegt: "+lenaHighscore);
 		logger.info("Highscore angelegt: "+jannaHighscore);
+		logger.info("Highscore angelegt: "+brutusHighscore);
 	}
 	
 	

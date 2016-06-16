@@ -19,7 +19,11 @@ public class HighscoreRegistry {
 	
 	@Lock(LockType.READ)
 	public Highscore findHighscoreById(int id){
-		return this.highscores.get(id);
+		for(int i = 0; i < highscores.size(); i++){
+			if(this.highscores.get(i).getPlayerId() == id)
+				return this.highscores.get(id);
+		}
+		return null;
 	}
 	
 	@Lock(LockType.WRITE)
