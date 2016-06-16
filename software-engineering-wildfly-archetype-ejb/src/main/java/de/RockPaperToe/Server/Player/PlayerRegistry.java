@@ -38,18 +38,18 @@ public class PlayerRegistry {
 		players = new ArrayList<>();
 		
 		//Spieler anlegen
-		Player max = new Player(1,player1Name);
-		Player anna = new Player(2,player2Name);
-		Player johann = new Player(3,"Johann");
-		Player manfred = new Player(4,"Manfred");
-		Player andre = new Player(5,"Andre");
-		Player kevin = new Player(6,"Kevin");
-		Player jasmin = new Player(7,"Jasmin");
-		Player arnold = new Player(8,"Arnold");
-		Player julian = new Player(9,"Julian");
-		Player lena = new Player(10,"Lena");
-		Player janna = new Player(11,"Janna");
-		Player brutus = new Player(12, "Brutus");
+		Player max = new Player(0,player1Name);
+		Player anna = new Player(1,player2Name);
+		Player johann = new Player(2,"Johann");
+		Player manfred = new Player(3,"Manfred");
+		Player andre = new Player(4,"Andre");
+		Player kevin = new Player(5,"Kevin");
+		Player jasmin = new Player(6,"Jasmin");
+		Player arnold = new Player(7,"Arnold");
+		Player julian = new Player(8,"Julian");
+		Player lena = new Player(9,"Lena");
+		Player janna = new Player(10,"Janna");
+		Player brutus = new Player(11, "Brutus");
 		
 		//Spieler in die Registry-ArrayList
 		addPlayer(max);
