@@ -10,6 +10,7 @@ import de.RockPaperToe.Server.DTO.HighscoreResponse;
 import de.RockPaperToe.Server.DTO.UpdateScoreResponse;
 import de.RockPaperToe.Server.Highscore.Highscore;
 import de.RockPaperToe.Server.Highscore.HighscoreRegistry;
+import de.RockPaperToe.Server.OutputManagement.OutputRequesterBean;
 import de.RockPaperToe.Server.Util.DtoAssembler;
 import de.RockPaperToe.Server.dao.PersistenceManagerLocal;
 
@@ -45,6 +46,9 @@ public class RockPaperToeServer {
 	@EJB
 	private DtoAssembler dtoAssembler;
 	
+	@EJB
+	private OutputRequesterBean output;
+	
 	public UpdateScoreResponse updatePoints(int playerId, int newScore){
 		logger.info("Fassade: updateScore aufgerufen mit PlayerId: "+playerId+" und newScore: "+newScore);
 		UpdateScoreResponse response = new UpdateScoreResponse();
@@ -55,6 +59,9 @@ public class RockPaperToeServer {
 				highscore.setScore(oldscore+newScore);
 				this.dao.updateRanking();
 				response.setNewScore(highscore.getScore());
+				String message = "Der Spieler mit der Id: "+playerId+" hatte vorher: "+oldscore+" Punkte. Und Nach diesem Sieg ist er bei :"+response.getNewScore()+" Punkten";
+				logger.info(message);
+				this.output.printLetter(message);
 			}
 		}
 		catch(Exception e){
