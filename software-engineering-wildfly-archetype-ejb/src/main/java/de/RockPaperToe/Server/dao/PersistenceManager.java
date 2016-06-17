@@ -12,11 +12,19 @@ import de.RockPaperToe.Server.Player.Player;
 
 @Stateless
 public class PersistenceManager implements PersistenceManagerLocal {
-
 	
 	@PersistenceContext
 	EntityManager em;
 	
+	/**
+	 * After a game the winner get Points.
+	 * The rank has to be updated
+	 * 1. Step => get all Highscore-Objects ordered by score
+	 * 2. Step => Set new Rank with a counter
+	 * 3. Step => Save update changes in the database
+	 * 
+	 * @author Antonios Kouklidis
+	 */
 	public void updateRanking(){
 		ArrayList<Highscore> highscores = new ArrayList<>();
 		highscores = (ArrayList<Highscore>) em.createQuery("SELECT h from Highscore h ORDER BY score DESC", Highscore.class).getResultList();
@@ -28,12 +36,28 @@ public class PersistenceManager implements PersistenceManagerLocal {
 		}
 	}
 	
-	public Highscore findHighscoreById(int id){
+	/**
+	 * This function is responsible for finding the right Highscore-Object
+	 * of a Player. The Highscore will be found with the PlayerId
+	 * 
+	 * @param id => the id of a Player
+	 * @return me => is a Highscore-Object
+	 * @author Antonios Kouklidis
+	 */
+	public Highscore findHighscoreById(int playerId){
 		TypedQuery<Highscore> query = em.createQuery("SELECT h from Highscore h where player_id = ?1", Highscore.class);
-		Highscore me =  (Highscore) query.setParameter(1, id).getSingleResult();
+		Highscore me =  (Highscore) query.setParameter(1, playerId).getSingleResult();
 		return me;
 	}
 	
+	/**
+	 * 1. Step: Query for getting all Highscores-Objects ordered by score in an ArrayList
+	 * 2. Step: Saving the first 10 Highscore-Objects in a new ArrayList
+	 * Intention => return an ArrayList with only Top10 Player
+	 * 
+	 * @return top10 => An Array with Highscore-Objects
+	 * @author Antonios Kouklidis
+	 */
 	public ArrayList<Highscore> getTop10Highscores(){
 		ArrayList<Highscore> highscores = new ArrayList<>();
 		highscores = (ArrayList<Highscore>) em.createQuery("SELECT h from Highscore h ORDER BY score DESC", Highscore.class).getResultList();
@@ -53,6 +77,12 @@ public class PersistenceManager implements PersistenceManagerLocal {
 		return top10;
 	}
 
+	/**
+	 * Find the Player with the right id
+	 * 
+	 * @param id => param is the Id of a Player
+	 * @author Antonios Kouklidis
+	 */
 	@Override
 	public Player findPlayerById(int id) {
 		Player player = em.find(Player.class, id);

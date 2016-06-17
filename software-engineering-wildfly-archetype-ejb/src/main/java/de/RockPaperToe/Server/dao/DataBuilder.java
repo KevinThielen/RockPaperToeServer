@@ -26,6 +26,17 @@ public class DataBuilder {
 	@EJB
 	PersistenceManagerLocal dao;
 	
+	/**
+	 * Test-szenario
+	 * Creating 11 Player with 11 Highscore
+	 * Using all Setter-Method for the objects
+	 * Persisting all Objects for testing
+	 * Show Top10 Highscore
+	 * Add new score to Player with id 77077 => set score from 20 to 10020. So he will change his Ranking from 20 to 1
+	 * Show Top10 Highscore => new Player in List (PlayerId 77077 is the first one)
+	 * 
+	 * @author Antonios Kouklidis
+	 */
 	@PostConstruct
 	private void createTestData(){
 		
@@ -44,7 +55,7 @@ public class DataBuilder {
 		
 		if(player1 != null){
 			Highscore me = dao.findHighscoreById(1);
-			logger.info("DATENBANK DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 1== " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 1== " +me.toString());
 		}
 		
 		Player player2 = dao.findPlayerById(50);
@@ -62,7 +73,7 @@ public class DataBuilder {
 		
 		if(player2 != null){
 			Highscore me = dao.findHighscoreById(50);
-			logger.info("DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 50 === " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 50 === " +me.toString());
 		}
 		
 		Player player3 = dao.findPlayerById(20);
@@ -80,7 +91,7 @@ public class DataBuilder {
 		
 		if(player3 != null){
 			Highscore me = dao.findHighscoreById(20);
-			logger.info("DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 20 === " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 20 === " +me.toString());
 		}
 		
 		Player player4 = dao.findPlayerById(3333);
@@ -98,7 +109,7 @@ public class DataBuilder {
 		
 		if(player4 != null){
 			Highscore me = dao.findHighscoreById(3333);
-			logger.info("DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 3333 === " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 3333 === " +me.toString());
 		}
 		
 		Player player5 = dao.findPlayerById(334);
@@ -116,7 +127,7 @@ public class DataBuilder {
 		
 		if(player5 != null){
 			Highscore me = dao.findHighscoreById(334);
-			logger.info("DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 334 === " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 334 === " +me.toString());
 		}
 		
 		Player player6 = dao.findPlayerById(111);
@@ -134,7 +145,7 @@ public class DataBuilder {
 		
 		if(player6 != null){
 			Highscore me = dao.findHighscoreById(111);
-			logger.info("DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 111 === " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 111 === " +me.toString());
 		}
 		
 		Player player7 = dao.findPlayerById(67);
@@ -152,7 +163,7 @@ public class DataBuilder {
 		
 		if(player7 != null){
 			Highscore me = dao.findHighscoreById(67);
-			logger.info("DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 67 === " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 67 === " +me.toString());
 		}
 		
 		Player player8 = dao.findPlayerById(55);
@@ -170,7 +181,7 @@ public class DataBuilder {
 		
 		if(player8 != null){
 			Highscore me = dao.findHighscoreById(55);
-			logger.info("DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 55 === " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 55 === " +me.toString());
 		}
 		
 		Player player9 = dao.findPlayerById(15);
@@ -188,7 +199,7 @@ public class DataBuilder {
 		
 		if(player9 != null){
 			Highscore me = dao.findHighscoreById(15);
-			logger.info("DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 15 === " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 15 === " +me.toString());
 		}
 		
 		Player player10 = dao.findPlayerById(15000);
@@ -206,7 +217,7 @@ public class DataBuilder {
 		
 		if(player10 != null){
 			Highscore me = dao.findHighscoreById(15000);
-			logger.info("DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 15000 === " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 15000 === " +me.toString());
 		}
 		
 		Player player11 = dao.findPlayerById(77077);
@@ -224,7 +235,7 @@ public class DataBuilder {
 		
 		if(player11 != null){
 			Highscore me = dao.findHighscoreById(77077);
-			logger.info("DATENBANK er hat den Highscore anhand der PlayerId gefunden id war 77077 === " +me.toString());
+			logger.info("DATENBANK == er hat den Highscore anhand der PlayerId gefunden id war 77077 === " +me.toString());
 		}
 		
 		logger.info("DATENBANK gib mir die top 10");

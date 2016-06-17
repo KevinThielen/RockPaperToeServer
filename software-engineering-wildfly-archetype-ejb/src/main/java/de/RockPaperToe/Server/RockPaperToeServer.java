@@ -9,7 +9,6 @@ import de.RockPaperToe.Server.DTO.HighscoreListResponse;
 import de.RockPaperToe.Server.DTO.HighscoreResponse;
 import de.RockPaperToe.Server.DTO.UpdateScoreResponse;
 import de.RockPaperToe.Server.Highscore.Highscore;
-import de.RockPaperToe.Server.Highscore.HighscoreRegistry;
 import de.RockPaperToe.Server.Util.DtoAssembler;
 import de.RockPaperToe.Server.dao.PersistenceManagerLocal;
 
@@ -35,16 +34,23 @@ public class RockPaperToeServer {
 		return new DTO();
 	}
 	
-	
-	//@EJB
-	//private HighscoreRegistry highscoreRegistry;
-	
 	@EJB
 	private PersistenceManagerLocal dao;
 	
 	@EJB
 	private DtoAssembler dtoAssembler;
 	
+	/**
+	 * Method for updating the score of a player
+	 * Persistence-Manager will find the Highscore by the playerId
+	 * When Highscore-Object found => update information (score)
+	 * Then Highscore-Objects have to be ordered because of getting the latest Top10
+	 * 
+	 * @param playerId => id of the Player
+	 * @param newScore => Points after a winning game
+	 * @return response => UpdateScoreResponse if success or not
+	 * @author Antonios Kouklidis
+	 */
 	public UpdateScoreResponse updatePoints(int playerId, int newScore){
 		logger.info("Fassade: updateScore aufgerufen mit PlayerId: "+playerId+" und newScore: "+newScore);
 		UpdateScoreResponse response = new UpdateScoreResponse();
@@ -64,6 +70,13 @@ public class RockPaperToeServer {
 		return response;
 	}
 	
+	/**
+	 * Method for getting an ArrayList with Top10 Players
+	 * Persistence-Manager return an ordered List with Highscore-Objects
+	 * 
+	 * @return response => HighscoreListResponse if success or not
+	 * @author Antonios Kouklidis
+	 */
 	public HighscoreListResponse getTop10(){
 		HighscoreListResponse response = new HighscoreListResponse();
 		try{
@@ -83,13 +96,21 @@ public class RockPaperToeServer {
 		return response;
 	}
 	
+	/**
+	 * Method for finding a Highscore-Object of a Player
+	 * Persistence-Manager finds the Highscore-Object by the playerId
+	 * 
+	 * @param id => id of a Player
+	 * @return response => if success or not
+	 * @author Antonios Kouklidis
+	 */
 	public HighscoreResponse getMyHighscore(int id){
 		HighscoreResponse response = new HighscoreResponse();
 		
 		try{
 			Highscore me = this.dao.findHighscoreById(id);
 			if(me != null){
-				logger.info("Meinen Highscore gefunden! :)");
+				logger.info("Meinen Highscore gefunden!");
 				response.setHighscore(this.dtoAssembler.makeDTO(me));
 			}
 			else{
@@ -102,44 +123,4 @@ public class RockPaperToeServer {
 		}
 		return response;
 	}
-	
-	/*
-	public HighscoreResponse getMyHighscore(int id){
-		HighscoreResponse response = new HighscoreResponse();
-		
-		try{
-			Highscore me = this.highscoreRegistry.findHighscoreById(id);
-			if(me != null){
-				logger.info("Meinen Highscore gefunden! :)");
-				response.setHighscore(this.dtoAssembler.makeDTO(me));
-			}
-			else{
-				logger.info("Mein Highscore konnte nicht gefunden werden");
-			}
-		}
-		catch (Exception e){
-			response.setReturnCode(1);
-			response.setMessage(e.getMessage());
-		}
-		return response;
-	}
-	
-	public HighscoreListResponse getTop10(){
-		HighscoreListResponse response = new HighscoreListResponse();
-		try{
-			List<Highscore> highscoreList = highscoreRegistry.getHighscores();
-			if(highscoreList != null){
-				response.setHighscoreList(dtoAssembler.makeDTO(highscoreList));
-				logger.info("Resultat der Highscoreliste: "+highscoreList);
-			}
-			else{
-				logger.info("Keine Highscoreliste gefunden");
-			}
-		}
-		catch(Exception e){
-			response.setReturnCode(1);
-			response.setMessage(e.getMessage());
-		}
-		return response;
-	}*/
 }
