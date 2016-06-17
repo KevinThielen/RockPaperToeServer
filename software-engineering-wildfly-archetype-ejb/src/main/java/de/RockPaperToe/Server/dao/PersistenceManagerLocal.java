@@ -10,4 +10,5 @@ public interface PersistenceManagerLocal {
 	public Highscore findHighscoreById(int id);
 	public ArrayList<Highscore> getTop10Highscores();
 	public Player findPlayerById(int id);
+	public void updateRanking();
 }

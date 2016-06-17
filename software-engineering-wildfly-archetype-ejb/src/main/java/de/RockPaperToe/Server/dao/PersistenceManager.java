@@ -17,6 +17,17 @@ public class PersistenceManager implements PersistenceManagerLocal {
 	@PersistenceContext
 	EntityManager em;
 	
+	public void updateRanking(){
+		ArrayList<Highscore> highscores = new ArrayList<>();
+		highscores = (ArrayList<Highscore>) em.createQuery("SELECT h from Highscore h ORDER BY score DESC", Highscore.class).getResultList();
+		int rank = 1;
+		for(int i = 0; i < highscores.size(); i++){
+			highscores.get(i).setRanking(rank);
+			em.merge(highscores.get(i));
+			rank++;
+		}
+	}
+	
 	public Highscore findHighscoreById(int id){
 		TypedQuery<Highscore> query = em.createQuery("SELECT h from Highscore h where player_id = ?1", Highscore.class);
 		Highscore me =  (Highscore) query.setParameter(1, id).getSingleResult();

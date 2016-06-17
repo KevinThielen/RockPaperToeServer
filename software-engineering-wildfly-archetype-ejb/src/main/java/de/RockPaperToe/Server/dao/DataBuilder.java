@@ -234,5 +234,21 @@ public class DataBuilder {
 		for(int i = 0; i < size; i++){
 		logger.info("DATENBANK Objekte in der Liste MYSQL: "+test.get(i));	
 		}
+		
+		Highscore h = this.dao.findHighscoreById(77077);
+		if(h != null){
+			int oldscore = h.getScore();
+			h.setScore(oldscore+10000);
+			em.merge(h);
+			this.dao.updateRanking();
+		}
+		
+		logger.info("DATENBANK gib mir die top 10");
+		ArrayList<Highscore> test2 = new ArrayList<>();
+		test = dao.getTop10Highscores();
+		int size2 = test.size();
+		for(int i = 0; i < size2; i++){
+		logger.info("DATENBANK Objekte in der Liste MYSQL: "+test.get(i));	
+		}
 	}
 }

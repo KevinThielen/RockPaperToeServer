@@ -7,6 +7,7 @@ import org.jboss.ws.api.annotation.WebContext;
 import de.RockPaperToe.Server.DTO.DTO;
 import de.RockPaperToe.Server.DTO.HighscoreListResponse;
 import de.RockPaperToe.Server.DTO.HighscoreResponse;
+import de.RockPaperToe.Server.DTO.UpdateScoreResponse;
 import de.RockPaperToe.Server.Highscore.Highscore;
 import de.RockPaperToe.Server.Highscore.HighscoreRegistry;
 import de.RockPaperToe.Server.Util.DtoAssembler;
@@ -43,7 +44,26 @@ public class RockPaperToeServer {
 	
 	@EJB
 	private DtoAssembler dtoAssembler;
-		
+	
+	public UpdateScoreResponse updatePoints(int playerId, int newScore){
+		logger.info("Fassade: updateScore aufgerufen mit PlayerId: "+playerId+" und newScore: "+newScore);
+		UpdateScoreResponse response = new UpdateScoreResponse();
+		try{
+			Highscore highscore = this.dao.findHighscoreById(playerId);
+			if(highscore != null){
+				int oldscore = highscore.getScore();
+				highscore.setScore(oldscore+newScore);
+				this.dao.updateRanking();
+				response.setNewScore(highscore.getScore());
+			}
+		}
+		catch(Exception e){
+			response.setReturnCode(1);
+			response.setMessage(e.getMessage());
+		}
+		return response;
+	}
+	
 	public HighscoreListResponse getTop10(){
 		HighscoreListResponse response = new HighscoreListResponse();
 		try{
