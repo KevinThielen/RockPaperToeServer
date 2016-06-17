@@ -10,6 +10,7 @@ import de.RockPaperToe.Server.DTO.HighscoreResponse;
 import de.RockPaperToe.Server.Highscore.Highscore;
 import de.RockPaperToe.Server.Highscore.HighscoreRegistry;
 import de.RockPaperToe.Server.Util.DtoAssembler;
+import de.RockPaperToe.Server.dao.PersistenceManagerLocal;
 
 import java.util.List;
 
@@ -34,12 +35,55 @@ public class RockPaperToeServer {
 	}
 	
 	
+	//@EJB
+	//private HighscoreRegistry highscoreRegistry;
+	
 	@EJB
-	private HighscoreRegistry highscoreRegistry;
+	private PersistenceManagerLocal dao;
 	
 	@EJB
 	private DtoAssembler dtoAssembler;
+		
+	public HighscoreListResponse getTop10(){
+		HighscoreListResponse response = new HighscoreListResponse();
+		try{
+			List<Highscore> highscoreList = this.dao.getTop10Highscores();
+			if(highscoreList != null){
+				response.setHighscoreList(dtoAssembler.makeDTO(highscoreList));
+				logger.info("Resultat der Highscoreliste: "+highscoreList);
+			}
+			else{
+				logger.info("Keine Highscoreliste gefunden");
+			}
+		}
+		catch(Exception e){
+			response.setReturnCode(1);
+			response.setMessage(e.getMessage());
+		}
+		return response;
+	}
 	
+	public HighscoreResponse getMyHighscore(int id){
+		HighscoreResponse response = new HighscoreResponse();
+		
+		try{
+			Highscore me = this.dao.findHighscoreById(id);
+			if(me != null){
+				logger.info("Meinen Highscore gefunden! :)");
+				response.setHighscore(this.dtoAssembler.makeDTO(me));
+			}
+			else{
+				logger.info("Mein Highscore konnte nicht gefunden werden");
+			}
+		}
+		catch (Exception e){
+			response.setReturnCode(1);
+			response.setMessage(e.getMessage());
+		}
+		return response;
+	}
+	
+	/*
 	public HighscoreResponse getMyHighscore(int id){
 		HighscoreResponse response = new HighscoreResponse();
 		
@@ -77,5 +121,5 @@ public class RockPaperToeServer {
 			response.setMessage(e.getMessage());
 		}
 		return response;
-	}
+	}*/
 }

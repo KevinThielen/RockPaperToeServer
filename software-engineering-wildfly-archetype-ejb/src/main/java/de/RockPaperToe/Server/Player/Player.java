@@ -1,16 +1,28 @@
 package de.RockPaperToe.Server.Player;
 
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 import de.RockPaperToe.Server.Highscore.*;
 
+@Entity
 public class Player implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private static int lastID = 0;
-	
+
+	@Id
 	private int id;
 	private String userName;
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="player")
 	private Highscore highscore;
+	
+	public Player() {}
 	
 	public Player(int id, String userName){
 		this.id = id;

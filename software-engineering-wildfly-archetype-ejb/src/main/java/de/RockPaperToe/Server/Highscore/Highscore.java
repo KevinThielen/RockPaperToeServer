@@ -2,27 +2,31 @@ package de.RockPaperToe.Server.Highscore;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 import de.RockPaperToe.Server.Player.Player;
 
+@Entity
 public class Highscore implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private int id, score, ranking;
+	@Id @GeneratedValue
+	private int id;
+	private int score, ranking;
 	
+	@OneToOne
 	private Player player;
-	private int playerId;
-	private String playerName;
 	
-	private static int lastID = 0;
+	public Highscore() {}
 	
 	public Highscore(Player player){
-		this.id = ++lastID;
 		this.score = 0;
 		this.ranking = 0;
 		this.player = player;
-		this.playerId = player.getId();
-		this.playerName = player.getUserName();
 	}
 	
 	// Nur die HighscoreID
@@ -35,11 +39,11 @@ public class Highscore implements Serializable{
 	}
 	
 	public int getPlayerId(){
-		return playerId;
+		return this.player.getId();
 	}
 	
 	public String getPlayerName(){
-		return playerName;
+		return this.player.getUserName();
 	}
 	
 	public int getScore(){

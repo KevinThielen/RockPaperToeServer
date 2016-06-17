@@ -33,7 +33,7 @@ public class PlayerRegistry {
 	@Resource
 	private SessionContext context;
 	
-	@PostConstruct
+	//@PostConstruct
 	private void init(){
 		players = new ArrayList<>();
 		
