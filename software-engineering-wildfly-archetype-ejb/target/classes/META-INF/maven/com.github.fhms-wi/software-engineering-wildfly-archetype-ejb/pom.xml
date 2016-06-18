@@ -54,11 +54,17 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
         </dependency>
- 			<dependency>
+ 	    <dependency>
         	<groupId>org.jboss.ws</groupId>
         	<artifactId>jbossws-api</artifactId>
         	<version>1.0.3.Final</version>
         </dependency>
+        
+        <dependency>
+     		<groupId>com.google.api-client</groupId>
+     		<artifactId>google-api-client</artifactId>
+     		<version>1.22.0</version>
+   		</dependency>
     </dependencies>
 
     <build>

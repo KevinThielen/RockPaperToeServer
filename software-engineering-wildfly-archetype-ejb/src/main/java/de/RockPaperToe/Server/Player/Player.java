@@ -10,12 +10,14 @@ public class Player implements Serializable{
 	
 	private int id;
 	private String userName;
+	private String googleId;
 	private Highscore highscore;
 	
-	public Player(int id, String userName){
-		this.id = id;
+	public Player(String userName, String googleId){
+		this.id = lastID++;
 		this.userName = userName;
 		this.highscore = null;
+		this.googleId = googleId;
 	}
 		
 	public void addNewHighscore(Highscore highscore){
@@ -34,6 +36,9 @@ public class Player implements Serializable{
 		return id;
 	}
 
+	public String getGoogleId() {
+		return googleId;
+	}
 	public void setId(int playerId) {
 		this.id = playerId;
 	}

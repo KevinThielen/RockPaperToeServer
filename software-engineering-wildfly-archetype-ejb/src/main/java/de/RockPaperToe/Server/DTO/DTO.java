@@ -1,12 +1,14 @@
 package de.RockPaperToe.Server.DTO;
 
-public class DTO {
+import java.io.Serializable;
+
+public class DTO implements Serializable{
 	private static final long serialVersionUID = 1L;
     //no error code
 	public static final int OK_CODE = 0;
 
-	private int returnCode;
-	private String message;
+	protected int returnCode;
+	protected String message;
 
 	public DTO() {
 		setReturnCode(OK_CODE);

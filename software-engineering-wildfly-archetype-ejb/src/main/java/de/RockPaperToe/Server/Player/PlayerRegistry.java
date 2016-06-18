@@ -1,6 +1,7 @@
 package de.RockPaperToe.Server.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -26,6 +27,7 @@ public class PlayerRegistry {
 	private static final Logger logger = Logger.getLogger(HighscoreRegistry.class);
 	
 	private ArrayList<Player> players;
+	private HashMap<String, Integer> googleMapper;
 	
 	@Resource
 	private String player1Name = "Max", player2Name = "Anna";
@@ -36,20 +38,21 @@ public class PlayerRegistry {
 	@PostConstruct
 	private void init(){
 		players = new ArrayList<>();
+		googleMapper = new HashMap<>();
 		
 		//Spieler anlegen
-		Player max = new Player(0,player1Name);
-		Player anna = new Player(1,player2Name);
-		Player johann = new Player(2,"Johann");
-		Player manfred = new Player(3,"Manfred");
-		Player andre = new Player(4,"Andre");
-		Player kevin = new Player(5,"Kevin");
-		Player jasmin = new Player(6,"Jasmin");
-		Player arnold = new Player(7,"Arnold");
-		Player julian = new Player(8,"Julian");
-		Player lena = new Player(9,"Lena");
-		Player janna = new Player(10,"Janna");
-		Player brutus = new Player(11, "Brutus");
+		Player max = new Player(player1Name, "1");
+		Player anna = new Player(player2Name, "2");
+		Player johann = new Player("Johann", "3");
+		Player manfred = new Player("Manfred", "4");
+		Player andre = new Player("Andre", "5");
+		Player kevin = new Player("Kevin", "6");
+		Player jasmin = new Player("Jasmin", "7");
+		Player arnold = new Player("Arnold", "8");
+		Player julian = new Player("Julian", "9");
+		Player lena = new Player("Lena", "10");
+		Player janna = new Player("Janna", "11");
+		Player brutus = new Player("Brutus", "12");
 		
 		//Spieler in die Registry-ArrayList
 		addPlayer(max);
@@ -150,9 +153,19 @@ public class PlayerRegistry {
 	public Player findPlayerById(int userId){
 		return this.players.get(userId);
 	}
+	@Lock(LockType.READ)
+	public Player getPlayerByGoogleId(String googleId){
+		if(googleMapper.containsKey(googleId)) {
+			return this.players.get(googleMapper.get(googleId));
+		}
+		else {
+			return null;
+		}
+	}
 	
 	@Lock(LockType.WRITE)
 	public void addPlayer(Player player){
 		this.players.add(player);
+		googleMapper.put(player.getGoogleId(), player.getId());
 	}
 }
