@@ -2,7 +2,6 @@ package de.RockPaperToe.Server.DTO;
 
 import java.io.Serializable;
 
-import de.RockPaperToe.Server.Player.Player;
 
 public class HighscoreTO implements Serializable{
 

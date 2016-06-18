@@ -1,6 +1,8 @@
 package de.RockPaperToe.Server.DTO;
 
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType(name = "LoginResponse2")
 public class LoginResponse extends DTO{
  /**
 	 * 
