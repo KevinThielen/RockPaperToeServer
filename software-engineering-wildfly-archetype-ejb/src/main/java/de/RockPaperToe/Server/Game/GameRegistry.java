@@ -1,6 +1,7 @@
 package de.RockPaperToe.Server.Game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.ejb.Lock;
 import javax.ejb.LockType;
@@ -19,13 +20,14 @@ public class GameRegistry {
 	private static final Logger logger = Logger.getLogger(GameRegistry.class);
 	ArrayList<Game> gameList;
 	ArrayList<Game> emptyGames;
-	
+	HashMap<Integer, Game> gamesMappedById;
     /**
      * Default constructor. 
      */
     public GameRegistry() {
         gameList = new ArrayList<>();
         emptyGames = new ArrayList<>();
+        gamesMappedById = new HashMap<>();
     }
 
     @Lock(LockType.WRITE)
@@ -43,6 +45,7 @@ public class GameRegistry {
 		Game newGame = new Game(player);
 		emptyGames.add(newGame);
 		gameList.add(newGame);
+		gamesMappedById.put(newGame.getId(), newGame);
 		logger.info("Created new game for player");
 	}
     
@@ -61,4 +64,16 @@ public class GameRegistry {
 		logger.info("Number of games found: "+games.size());
 		return games;
 	}
+    
+    
+    @Lock(LockType.WRITE)
+    public void makeMove(Player player, int gameId, int x, int y) {
+    	gamesMappedById.get(gameId).makeMove(player, x, y);
+    }
+    
+    @Lock(LockType.READ)
+    public GameState getGameState(Player player, int gameId) {
+    	Game game = gamesMappedById.get(gameId);
+    	return game.getGameState(player);
+    }
 }

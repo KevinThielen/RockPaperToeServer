@@ -11,6 +11,12 @@ public class Cell {
         value = ECell.EMPTY;
     }
 
+    public Cell(Player owner, ECell value) {
+        this.owner = owner;
+        this.value = value;
+    }
+
+    
     public void setValue(ECell value) {
         this.value = value;
     }

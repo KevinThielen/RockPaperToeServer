@@ -3,8 +3,9 @@ package de.RockPaperToe.Server.Game;
 import java.io.Serializable;
 
 import de.RockPaperToe.Server.DTO.CellTO;
+import de.RockPaperToe.Server.DTO.DTO;
 
-public class GameState implements Serializable{
+public class GameState extends DTO{
 	/**
 	 * 
 	 */

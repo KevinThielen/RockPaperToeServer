@@ -53,7 +53,9 @@ public class DtoAssembler {
 		
 		for(int x = 0; x<3; x++) {
 			for(int y = 0; y<3; y++) {
-				boolean owner = (board[x][y].getOwner() != null && board[x][y].getOwner() != null && player.getId() == board[x][y].getOwner().getId());
+				boolean owner = (board[x][y].getOwner() != null  
+						&& player.getId() == board[x][y].getOwner().getId());
+				
 				playerBoard[x][y] = new CellTO(owner, board[x][y].getValue());
 			}
 		}

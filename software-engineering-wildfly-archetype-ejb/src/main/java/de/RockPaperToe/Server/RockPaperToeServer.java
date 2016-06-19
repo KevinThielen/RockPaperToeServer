@@ -16,6 +16,7 @@ import de.RockPaperToe.Server.Player.Player;
 import de.RockPaperToe.Server.DTO.UpdateScoreResponse;
 import de.RockPaperToe.Server.Game.Game;
 import de.RockPaperToe.Server.Game.GameRegistry;
+import de.RockPaperToe.Server.Game.GameState;
 import de.RockPaperToe.Server.dao.PersistenceManagerLocal;
 
 import java.util.ArrayList;
@@ -69,6 +70,25 @@ public class RockPaperToeServer {
         	return response;
     	}
     }
+    
+    public GameState makeMove(int sessionId, int gameId, int x, int y) {
+    	logger.info("Request for GameList by ID: "+sessionId);
+    	
+    	Player player = sessionManager.getSessionById(sessionId).getPlayer();
+    	
+    	gameManager.makeMove(player, gameId, x, y);
+    	
+    	return gameManager.getGameState(player, gameId);
+    }
+    
+    public GameState getGameState(int sessionId, int gameId) {
+    	logger.info("Request for GameList by ID: "+sessionId);
+    	
+    	Player player = sessionManager.getSessionById(sessionId).getPlayer();
+    	
+    	return gameManager.getGameState(player, gameId);
+    }
+    
     public GameListResponse getGames(int sessionId) {
     	logger.info("Request for GameList by ID: "+sessionId);
     	

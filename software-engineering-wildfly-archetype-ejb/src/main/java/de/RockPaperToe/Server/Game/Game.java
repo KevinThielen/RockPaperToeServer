@@ -43,10 +43,13 @@ public class Game {
 		gameOver = false;
 		terminate = false;
 		dtoAssembler = new DtoAssembler();
+		currentPlayer = creator;
 		
 		resetBoard();
 	}
-	
+	public int getId() {
+		return gameId;
+	}
 	boolean isOver() {
 		return terminate;
 	}
@@ -196,7 +199,7 @@ public class Game {
 		if(gameOver && player.getId() == currentPlayer.getId()) {
 			won = true;
 		}
-		boolean opponentsTurn = (currentPlayer != player);
+		boolean opponentsTurn = (currentPlayer.getId() != player.getId());
 		String opponentsName = "";
 		if(opponent != null)
 			opponentsName = opponent.getUserName();
