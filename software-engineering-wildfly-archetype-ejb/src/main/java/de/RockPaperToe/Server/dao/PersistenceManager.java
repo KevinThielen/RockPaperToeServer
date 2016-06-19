@@ -100,7 +100,7 @@ public class PersistenceManager implements PersistenceManagerLocal {
 	@Override
 	public Player findPlayerByGoogleId(String googleId) {
 		TypedQuery<Player> query = em.createQuery("SELECT p from Player p where googleId = ?1", Player.class);
-		List results = query.setParameter(1, googleId).getResultList();
+		List<Player> results = query.setParameter(1, googleId).getResultList();
 		
 		if(results.isEmpty())
 			return null;

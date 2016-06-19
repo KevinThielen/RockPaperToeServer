@@ -1,7 +1,5 @@
 package de.RockPaperToe.Server.dao;
 
-import java.util.ArrayList;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -9,17 +7,14 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.jboss.logging.Logger;
 
-import de.RockPaperToe.Server.Highscore.Highscore;
-import de.RockPaperToe.Server.Player.Player;
+
 
 @Singleton
 @Startup
 public class DataBuilder {
 
-	private static final Logger logger = Logger.getLogger(DataBuilder.class);
-	
+
 	@PersistenceContext
 	EntityManager em;
 	

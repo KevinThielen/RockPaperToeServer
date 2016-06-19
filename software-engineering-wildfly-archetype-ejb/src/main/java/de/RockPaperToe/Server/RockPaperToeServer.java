@@ -4,21 +4,21 @@ package de.RockPaperToe.Server;
 import org.jboss.logging.Logger;
 import org.jboss.ws.api.annotation.WebContext;
 
-
-
+import de.RockPaperToe.Server.DTO.GameListResponse;
 import de.RockPaperToe.Server.DTO.HighscoreListResponse;
 import de.RockPaperToe.Server.DTO.HighscoreResponse;
 import de.RockPaperToe.Server.DTO.LoginResponse;
-import de.RockPaperToe.Server.DTO.RegistrationResponse;
 import de.RockPaperToe.Server.Highscore.Highscore;
 import de.RockPaperToe.Server.Session.Session;
 import de.RockPaperToe.Server.Session.SessionManager;
 import de.RockPaperToe.Server.Util.DtoAssembler;
 import de.RockPaperToe.Server.Player.Player;
 import de.RockPaperToe.Server.DTO.UpdateScoreResponse;
+import de.RockPaperToe.Server.Game.Game;
+import de.RockPaperToe.Server.Game.GameRegistry;
 import de.RockPaperToe.Server.dao.PersistenceManagerLocal;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -44,6 +44,51 @@ public class RockPaperToeServer {
     @EJB
     private SessionManager sessionManager;
     
+    @EJB
+    GameRegistry gameManager;
+    
+    public GameListResponse newGame(int sessionId) {
+    	logger.info("Request for new Game by ID: "+sessionId);
+    	Session session = sessionManager.getSessionById(sessionId);
+    	
+    	if(session != null) {
+	    	Player player = session.getPlayer();
+	    	
+	    	gameManager.lookForNewGame(player);
+	    	ArrayList<Game> games = gameManager.findGamesForPlayer(player);
+	    	
+	    	GameListResponse response = new GameListResponse(games, player);
+	    	
+	    	return response;
+    	}
+    	else {
+    		GameListResponse response = new GameListResponse();
+        	response.setReturnCode(-1);
+        	response.setMessage("No valid Session active");
+        	
+        	return response;
+    	}
+    }
+    public GameListResponse getGames(int sessionId) {
+    	logger.info("Request for GameList by ID: "+sessionId);
+    	
+    	Session session = sessionManager.getSessionById(sessionId);
+    	if(session == null) {
+        	GameListResponse response = new GameListResponse();
+        	response.setReturnCode(-1);
+        	response.setMessage("No valid Session active");
+        	
+        	return response;
+    	}
+    	else {
+    	Player player = session.getPlayer();
+    	ArrayList<Game> games = gameManager.findGamesForPlayer(player);
+    	
+    	GameListResponse response = new GameListResponse(games, player);
+    	
+    	return response;
+    	}
+    }
 	
 	public LoginResponse login(String googleId) {
 		logger.info("Received ID: "+googleId);
@@ -51,9 +96,11 @@ public class RockPaperToeServer {
 	
 		
 		if(player != null) {
-			//sessionhandling 
 			logger.info("User exists. Logged in");
-			return new LoginResponse(0);
+			Session session = sessionManager.login(player);
+			
+			logger.info("Created session with id: "+session.getId());
+			return new LoginResponse(session.getId(), player.getUserName());
 		}
 		else {
 			logger.info("User doesn't exist. Request new Registration");
@@ -61,23 +108,22 @@ public class RockPaperToeServer {
 		}
 	}
 	
-    public RegistrationResponse register(String userId, String name)  {
+    public LoginResponse register(String userId, String name)  {
     	logger.info("Received ID: "+userId);
     	logger.info("Received Name: "+name);
     	
     	dao.addPlayer(userId, name);
     	
-    	Player player = dao.findPlayerByGoogleId(userId);
+    
+	    Player player = dao.findPlayerByGoogleId(userId);
+	    	
+	    Session session = sessionManager.login(player);
+	    	
+
+	    logger.info("Created session with id: "+session.getId());
+	    return new LoginResponse(session.getId(), player.getUserName());
+	
     	
-    	Session session = sessionManager.login(player);
-    	
-    	if(player != null) {
-    		logger.info("Created session with id: "+session.getId());
-    		return new RegistrationResponse(session.getId());
-    	}
-    	else {
-    		return new RegistrationResponse(-1);
-    	}
     }
 	
 	
@@ -94,7 +140,10 @@ public class RockPaperToeServer {
 	 * @return response => UpdateScoreResponse if success or not
 	 * @author Antonios Kouklidis
 	 */
-	public UpdateScoreResponse updatePoints(int playerId, int newScore){
+	public UpdateScoreResponse updatePoints(int sessionId, int newScore){
+		Session session = sessionManager.getSessionById(sessionId);
+		
+		int playerId = session.getPlayer().getId();
 		logger.info("Fassade: updateScore aufgerufen mit PlayerId: "+playerId+" und newScore: "+newScore);
 		UpdateScoreResponse response = new UpdateScoreResponse();
 		try{
@@ -121,6 +170,7 @@ public class RockPaperToeServer {
 	 * @author Antonios Kouklidis
 	 */
 	public HighscoreListResponse getTop10(){
+		
 		HighscoreListResponse response = new HighscoreListResponse();
 		try{
 			List<Highscore> highscoreList = this.dao.getTop10Highscores();
@@ -147,11 +197,14 @@ public class RockPaperToeServer {
 	 * @return response => if success or not
 	 * @author Antonios Kouklidis
 	 */
-	public HighscoreResponse getMyHighscore(int id){
+	public HighscoreResponse getMyHighscore(int sessionId){
+		Session session = sessionManager.getSessionById(sessionId);
+		
+		int playerId = session.getPlayer().getId();
 		HighscoreResponse response = new HighscoreResponse();
 		
 		try{
-			Highscore me = this.dao.findHighscoreById(id);
+			Highscore me = this.dao.findHighscoreById(playerId);
 			if(me != null){
 				logger.info("Meinen Highscore gefunden!");
 				response.setHighscore(this.dtoAssembler.makeDTO(me));
