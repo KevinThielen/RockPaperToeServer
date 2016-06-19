@@ -69,11 +69,23 @@ public class GameRegistry {
     @Lock(LockType.WRITE)
     public void makeMove(Player player, int gameId, int x, int y) {
     	gamesMappedById.get(gameId).makeMove(player, x, y);
+    
     }
     
-    @Lock(LockType.READ)
+    @Lock(LockType.WRITE)
     public GameState getGameState(Player player, int gameId) {
     	Game game = gamesMappedById.get(gameId);
+        
+    	if(game.isOver()) {
+    		gamesMappedById.remove(gameId);
+    		for(int i = 0; i<gameList.size(); i++) {
+    			if(game.getId() == gameList.get(i).getId()) {
+    				gameList.remove(i);
+    				logger.info("Removed game");
+    				break;
+    			}
+    		}
+    	}
     	return game.getGameState(player);
     }
 }

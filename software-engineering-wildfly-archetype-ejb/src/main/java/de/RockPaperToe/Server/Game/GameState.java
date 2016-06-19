@@ -30,7 +30,7 @@ public class GameState extends DTO{
 		else if(currentValue == ECell.ROCK)
 			this.currentValue = "ROCK";
 		else if(currentValue == ECell.SCISSOR)
-			this.currentValue = "SCISSPR";
+			this.currentValue = "SCISSOR";
 		else
 			this.currentValue = "EMPTY";
 		

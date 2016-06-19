@@ -18,21 +18,12 @@ public class Game {
     ECell currentValue;
     boolean terminate;
     DtoAssembler dtoAssembler;
+    boolean resultCheckedByPlayer;
+    boolean resultCheckedByPlayer2;
     
     static int GAME_COUNTER = 0;
 	
-    void leaveGame(Player player) {
-    	if(this.player != null && player.getId() == this.player.getId()) {
-    		this.player = null;
-    	}
-    	else if(this.player2 != null && player.getId() == this.player2.getId()) {
-    		this.player2 = null;
-    	}
-    	
-    	if(this.player == null && player2 == null) {
-    		terminate = true;
-    	}
-    }
+
     
 	public Game(Player creator) {
 		player = creator;
@@ -44,7 +35,9 @@ public class Game {
 		terminate = false;
 		dtoAssembler = new DtoAssembler();
 		currentPlayer = creator;
-		
+		currentValue = ECell.ROCK;
+		resultCheckedByPlayer = false;
+		resultCheckedByPlayer2 = false;
 		resetBoard();
 	}
 	public int getId() {
@@ -82,7 +75,7 @@ public class Game {
 	}
 	
 	 public void makeMove(Player player, int column, int row) {
-	        if(player == currentPlayer && !gameOver) {
+	        if(player.getId() == currentPlayer.getId() && !gameOver) {
 	            if(ECell.EMPTY == board[column][row].value) {
 	                changeCell(column, row);
 	                endTurn();
@@ -198,6 +191,18 @@ public class Game {
 		
 		if(gameOver && player.getId() == currentPlayer.getId()) {
 			won = true;
+		}
+		if(gameOver) {
+			if(player.getId() == this.player.getId()) {
+				resultCheckedByPlayer = true;
+			}
+			else {
+				resultCheckedByPlayer2 = true;
+			}
+			
+			if(resultCheckedByPlayer && resultCheckedByPlayer2) {
+				terminate = true;
+			}
 		}
 		boolean opponentsTurn = (currentPlayer.getId() != player.getId());
 		String opponentsName = "";
