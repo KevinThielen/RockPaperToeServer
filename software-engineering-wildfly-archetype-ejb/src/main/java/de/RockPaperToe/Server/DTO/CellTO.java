@@ -10,6 +10,11 @@ public class CellTO  extends DTO{
 	boolean ownedByPlayer;
 	ECell value;
 	
+    /**
+     * Konstruktor. 
+     * @author Kevin Thielen
+     */
+	
 	public CellTO(boolean ownedByPlayer, ECell value) {
 		this.ownedByPlayer = ownedByPlayer;
 		this.value = value;

@@ -28,7 +28,6 @@ public class SessionManager {
 	@Lock(LockType.WRITE)
 	public Session login(Player player)
 	{
-
 		Session newSession = new Session(player);
 	    sessions.put(newSession.getId(), newSession);
 
