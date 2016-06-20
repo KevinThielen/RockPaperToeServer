@@ -30,6 +30,11 @@ public class GameRegistry {
         gamesMappedById = new HashMap<>();
     }
 
+    /**
+     * Look for the next empty game to join. If there arnt any, 
+     * it will create a new one
+     * @author Kevin Thielen
+     */
     @Lock(LockType.WRITE)
 	public void lookForNewGame(Player player) {
 		for(int i = 0; i<emptyGames.size(); i++) {
@@ -49,6 +54,10 @@ public class GameRegistry {
 		logger.info("Created new game for player");
 	}
     
+    /**
+     * Returns a list of all owned rooms of the player
+     * @author Kevin Thielen
+     */
     @Lock(LockType.READ)
 	public ArrayList<Game> findGamesForPlayer(Player player) {
 		ArrayList<Game> games = new ArrayList<>();
@@ -65,13 +74,20 @@ public class GameRegistry {
 		return games;
 	}
     
-    
+    /**
+     * Make a game move
+     * @author Kevin Thielen
+     */
     @Lock(LockType.WRITE)
     public void makeMove(Player player, int gameId, int x, int y) {
     	gamesMappedById.get(gameId).makeMove(player, x, y);
     
     }
     
+    /**
+     * Returns the entire GameState
+     * @author Kevin Thielen
+     */
     @Lock(LockType.WRITE)
     public GameState getGameState(Player player, int gameId) {
     	Game game = gamesMappedById.get(gameId);

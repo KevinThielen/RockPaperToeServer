@@ -91,12 +91,20 @@ public class PersistenceManager implements PersistenceManagerLocal {
 		return player;
 	}
 
+    /**
+     * Create a new Player Entity
+     * @author Kevin Thielen
+     */
 	@Override
 	public void addPlayer(String googleId, String userName) {
 		Player player = new Player(googleId, userName);
 		em.persist(player);
 	}
 	
+    /**
+     * Returns the player id via the googleId
+     * @author Kevin Thielen
+     */
 	@Override
 	public Player findPlayerByGoogleId(String googleId) {
 		TypedQuery<Player> query = em.createQuery("SELECT p from Player p where googleId = ?1", Player.class);

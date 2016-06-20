@@ -1,6 +1,6 @@
 package de.RockPaperToe.Serer.Output;
 
-
+/*
 import javax.jms.*;
 
 import org.jboss.logging.Logger;
@@ -9,13 +9,17 @@ import javax.annotation.Resource;
 import javax.ejb.EJBException;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+/* Doesn't work on our local machines, even though it matches the entry in the standalone.xml
+ * 
+ */
 
+/*
 @Stateless
 public class HighscoreRequest {
 	
 	@Resource(lookup = "java:/JmsXA")
 	private ConnectionFactory connectionFactory;
-	@Resource(lookup = "java:/jms/queue1")
+	@Resource(lookup = "java:/jms/Queue1")
 	private Queue queue;
 		
 	private static final Logger logger = Logger.getLogger(HighscoreRequest.class);
@@ -32,4 +36,4 @@ public class HighscoreRequest {
 			throw new EJBException(e);
 		}
 	}
-}
+}*/

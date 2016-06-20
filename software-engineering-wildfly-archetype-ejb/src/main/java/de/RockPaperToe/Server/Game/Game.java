@@ -50,6 +50,10 @@ public class Game {
 		return terminate;
 	}
 	
+    /**
+     * Creates an empty board
+     * @author Kevin Thielen
+     */
 	private void resetBoard() {
 		board = new Cell[3][3];
         for(int x = 0; x<3; x++) {
@@ -58,6 +62,8 @@ public class Game {
             }
         }
     }
+	
+
 	Player getPlayer() {
 		return player;
 	}
@@ -65,7 +71,10 @@ public class Game {
 	Player getPlayer2() {
 		return player2;
 	}
-	
+    /**
+     * starts the game
+     * @author Kevin Thielen
+     */
 	void start() {
         Random random = new Random();
         int randomIndex = random.nextInt(2);
@@ -77,6 +86,10 @@ public class Game {
 		resetBoard();
 	}
 	
+    /**
+     * Play move
+     * @author Kevin Thielen
+     */
 	 public void makeMove(Player player, int column, int row) {
 	        if(player.getId() == currentPlayer.getId() && !gameOver) {
 	            if(ECell.EMPTY == board[column][row].value) {
@@ -85,6 +98,11 @@ public class Game {
 	            }
 	        }
 	    }
+	 
+	    /**
+	     * changes ownership of the neighbouring tiles
+	     * @author Kevin Thielen
+	     */
 	 void changeCell(int column, int row) {
 	        board[column][row].setValue(currentValue);
 	        board[column][row].setOwner(currentPlayer);
@@ -107,6 +125,10 @@ public class Game {
 
 	        }
 	    }
+	    /**
+	     * Check for the win conditions
+	     * @author Kevin Thielen
+	     */
 	 boolean checkWin() {
 
 	        for(int i = 0; i < 3; i++) {
@@ -130,6 +152,10 @@ public class Game {
 
 
 	    }
+	    /**
+	     * get the move that beats the passed move
+	     * @author Kevin Thielen
+	     */
 	 ECell winsAgainst(ECell cell) {
 	        if(ECell.SCISSOR == cell) {
 	            return ECell.ROCK;
@@ -157,7 +183,10 @@ public class Game {
 	        return ECell.EMPTY;
 	    }
 	 
-	 
+	    /**
+	     * End the turns and changes the current player
+	     * @author Kevin Thielen
+	     */
 	    void endTurn() {
 
 	        if(checkWin()) {
@@ -187,6 +216,10 @@ public class Game {
 		start();
 	}
 	
+	    /**
+	     * Returns the entire Gamestate
+	     * @author Kevin Thielen
+	     */
 	public GameState getGameState(Player player) {
 		Player opponent;  
 		if(this.player.getId() == player.getId())

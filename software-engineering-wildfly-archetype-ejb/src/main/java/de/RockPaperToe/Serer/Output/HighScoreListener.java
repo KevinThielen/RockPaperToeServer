@@ -25,7 +25,7 @@ import de.RockPaperToe.Server.Highscore.Highscore;
 				propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 		@ActivationConfigProperty(
 				propertyName = "destination",
-				propertyValue = "queue/queue1")
+				propertyValue = "queue/Queue1")
 		})
 public class HighScoreListener implements MessageListener {
 

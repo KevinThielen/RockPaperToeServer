@@ -79,6 +79,18 @@
                     <filterDeploymentDescriptor>true</filterDeploymentDescriptor>
                 </configuration>
             </plugin>
+            
+             <plugin>
+                                <groupId>com.smartbear.soapui</groupId>
+                                <artifactId>soapui-maven-plugin</artifactId>
+                                <version>5.2.1</version>
+                                <configuration>
+                                        <!--TODO: Pfad für
+Ihre Datei anpassen -->
+                                        <projectFile>src/test/java/soapui/RockPaperToe-soapui-project.xml</projectFile>
+                                </configuration>
+                        </plugin>
+            
         </plugins>
     </build>
 
@@ -136,5 +148,13 @@
         </profile>
 
     </profiles>
+
+ <pluginRepositories>
+                <pluginRepository>
+                        <id>smartbear-sweden-plugin-repository</id>
+                        <url>http://www.soapui.org/repository/maven2/</url>
+                </pluginRepository>
+        </pluginRepositories>
+
 
 </project>

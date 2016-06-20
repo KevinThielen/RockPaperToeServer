@@ -48,6 +48,12 @@ public class RockPaperToeServer {
     @EJB
     GameRegistry gameManager;
     
+    /**
+     * Looks for a new game for the player.
+     * If there are no empty games available, it will create a new one.
+     * It returns a list of all available games for the player.
+     * @author Kevin Thielen
+     */
     public GameListResponse newGame(int sessionId) {
     	logger.info("Request for new Game by ID: "+sessionId);
     	Session session = sessionManager.getSessionById(sessionId);
@@ -70,7 +76,11 @@ public class RockPaperToeServer {
         	return response;
     	}
     }
-    
+    /**
+     * Make a play move. The move will be validated on the server. It return
+     * the entire gamestate.
+     * @author Kevin Thielen
+     */
     public GameState makeMove(int sessionId, int gameId, int x, int y) {
     	logger.info("Request for GameList by ID: "+sessionId);
     	
@@ -80,7 +90,11 @@ public class RockPaperToeServer {
     	
     	return gameManager.getGameState(player, gameId);
     }
-    
+    /**
+     * Returns the gmestate for a specific game. It finds the game viw
+     * the gameId from the gameManager
+     * @author Kevin Thielen
+     */
     public GameState getGameState(int sessionId, int gameId) {
     	logger.info("Request for GameList by ID: "+sessionId);
     	
@@ -88,7 +102,10 @@ public class RockPaperToeServer {
     	
     	return gameManager.getGameState(player, gameId);
     }
-    
+    /**
+     * Returns a list of all available games for the player.
+     * @author Kevin Thielen
+     */
     public GameListResponse getGames(int sessionId) {
     	logger.info("Request for GameList by ID: "+sessionId);
     	
@@ -109,7 +126,11 @@ public class RockPaperToeServer {
     	return response;
     	}
     }
-	
+    /**
+     * Creates a new session for the user. If the user 
+     * doesnt exist, it will ask him to create a new accout.
+     * @author Kevin Thielen
+     */
 	public LoginResponse login(String googleId) {
 		logger.info("Received ID: "+googleId);
 		Player player = dao.findPlayerByGoogleId(googleId);
@@ -128,6 +149,11 @@ public class RockPaperToeServer {
 		}
 	}
 	
+    /**
+     * Bind the googleId with the user account
+     * and creates a new Session
+     * @author Kevin Thielen
+     */
     public LoginResponse register(String userId, String name)  {
     	logger.info("Received ID: "+userId);
     	logger.info("Received Name: "+name);

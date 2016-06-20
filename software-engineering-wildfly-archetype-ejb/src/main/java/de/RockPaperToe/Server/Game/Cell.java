@@ -2,6 +2,10 @@ package de.RockPaperToe.Server.Game;
 
 import de.RockPaperToe.Server.Player.Player;
 
+/**
+ * Represents a single cell in the board
+ * @author Kevin Thielen
+ */
 public class Cell {
 	Player owner;
     ECell value;

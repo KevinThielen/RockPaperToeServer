@@ -48,6 +48,10 @@ public class DtoAssembler {
 		return dtoList;
 	}
 	
+    /**
+     * Translat the Cell into a CellTO
+     * @author Kevin Thielen
+     */
 	public CellTO[][] makeCellTO(Player player, Cell[][] board) {
 		CellTO[][] playerBoard = new CellTO[3][3];
 		
