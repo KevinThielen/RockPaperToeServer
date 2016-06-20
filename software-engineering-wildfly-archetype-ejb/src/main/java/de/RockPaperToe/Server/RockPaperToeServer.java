@@ -30,7 +30,7 @@ import javax.jws.WebService;
  * Session Bean implementation class RockPaperToeServer
  */
 @WebService
-@WebContext(contextRoot = "/RockPaperToeServer")
+@WebContext(contextRoot = "/RPTServer")
 @Stateless
 public class RockPaperToeServer {
 
