@@ -2,6 +2,8 @@ package de.RockPaperToe.Server.Game;
 
 import java.util.Random;
 
+import javax.ejb.EJB;
+
 import de.RockPaperToe.Server.DTO.CellTO;
 import de.RockPaperToe.Server.Player.Player;
 import de.RockPaperToe.Server.Util.DtoAssembler;
@@ -23,7 +25,8 @@ public class Game {
     
     static int GAME_COUNTER = 0;
 	
-
+//@EJB
+//HighscoreRequest scorer;
     
 	public Game(Player creator) {
 		player = creator;
@@ -159,6 +162,10 @@ public class Game {
 
 	        if(checkWin()) {
 	            gameOver = true;
+	            
+	            int winner = currentPlayer.getId();
+	            
+	   //         scorer.printLetter("+\t"+winner);
 	            return;
 	        }
 

@@ -57,6 +57,9 @@ public class Highscore implements Serializable{
 		return score;
 	}
 	
+	public void addScore(int amount) {
+		score += amount;
+	}
 	// Setter for score
 	public void setScore(int score){
 		this.score = score;
